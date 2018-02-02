@@ -1,0 +1,20 @@
+<layouts>
+    <layout id="MainLayout">
+        <drawable id="MainBackground" class="MainBackgroundView" />
+        <label id="CityValue" text=""     x="center" y="25"     font="Gfx.FONT_XTINY"              justification="Gfx.TEXT_JUSTIFY_CENTER" />
+
+        <label id="AqiLabel"  text="aqi"  x="50"     y="center" font="Gfx.FONT_XTINY"              justification="Gfx.TEXT_JUSTIFY_LEFT" />
+        <label id="AqiValue"  text=""     x="center" y="center" font="Gfx.FONT_SYSTEM_NUMBER_HOT"  justification="Gfx.TEXT_JUSTIFY_LEFT" />
+
+        <label id="Pm25Label" text="pm25" x="50"     y="160"    font="Gfx.FONT_XTINY"              justification="Gfx.TEXT_JUSTIFY_LEFT" />
+        <label id="Pm25Value" text=""     x="center" y="170"    font="Gfx.FONT_SYSTEM_NUMBER_MILD" justification="Gfx.TEXT_JUSTIFY_LEFT | Gfx.TEXT_JUSTIFY_VCENTER" />
+
+        <label id="Pm10Label" text="pm10" x="50"     y="190"    font="Gfx.FONT_XTINY"              justification="Gfx.TEXT_JUSTIFY_LEFT" />
+        <label id="Pm10Value" text=""     x="center" y="200"    font="Gfx.FONT_SYSTEM_NUMBER_MILD" justification="Gfx.TEXT_JUSTIFY_LEFT | Gfx.TEXT_JUSTIFY_VCENTER" />
+    </layout>
+
+    <layout id="SimpleMessageLayout">
+        <drawable id="SimpleMessageBackground" class="SimpleMessageBackgroundView" />
+        <label id="MessageLabel" text="" x="center" y="center" font="Gfx.FONT_SMALL" justification="Gfx.TEXT_JUSTIFY_CENTER | Gfx.TEXT_JUSTIFY_VCENTER" />
+    </layout>
+</layouts>
