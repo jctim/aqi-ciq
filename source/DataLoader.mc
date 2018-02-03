@@ -1,5 +1,4 @@
 using Toybox.WatchUi as Ui;
-using Toybox.Graphics as Gfx;
 using Toybox.System as Sys;
 using Toybox.Communications as Comm;
 using Toybox.Position as Position;
@@ -11,23 +10,32 @@ enum {
     DataRetrievedError  = 11
 }
 
+enum {
+    Good,
+    Moderate,
+    UnhealthyForSensitive,
+    Unhealthy,
+    VeryUnhealthy,
+    Hazardous
+}
+
 class OkData {
     var city;
     var aqi;
     var pm25;
     var pm10;
-    var color;
+    var level;
 
-    function initialize(city, aqi, pm25, pm10, color) {
+    function initialize(city, aqi, pm25, pm10, level) {
         self.city  = city;
         self.aqi   = aqi;
         self.pm25  = pm25;
         self.pm10  = pm10;
-        self.color = color;
+        self.level = level;
     }
 
     function toString() {
-        return "okData[city=" + city + ":aqi=" + aqi + ":pm25=" + pm25 + ":pm10=" + pm10 + ":color=" + color + "]";
+        return "okData[city=" + city + ":aqi=" + aqi + ":pm25=" + pm25 + ":pm10=" + pm10 + ":level=" + level + "]";
     }
 }
 
@@ -138,7 +146,7 @@ class DataLoader {
             var aqi   = data["data"]["aqi"];
             var pm25  = data["data"]["iaqi"]["pm25"] != null ? data["data"]["iaqi"]["pm25"]["v"] : "-";
             var pm10  = data["data"]["iaqi"]["pm10"] != null ? data["data"]["iaqi"]["pm10"]["v"] : "-";
-            self.data = new OkData(normalize(city), aqi, pm25, pm10, decideColor(aqi));
+            self.data = new OkData(normalize(city), aqi, pm25, pm10, decideLevel(aqi));
         } else if (data != null && data instanceof Dictionary) {
             self.status = DataRetrievedError;
             
@@ -147,27 +155,36 @@ class DataLoader {
         } else {
             self.status = DataRetrievedError;
             
-            var message = "Error:\ncode=" + responseCode + "\nNo Connection";
+            var message = "code=" + responseCode + "\nNo Connection";  // TODO move to String resources???
             self.data   = new ErrorData(message);
         }
 
         Ui.requestUpdate();
     }
 
-    function decideColor(aqi) {
+    //!
+    //!     Good,
+    //!     Moderate,
+    //!     UnhealthyForSensitive,
+    //!     Unhealthy,
+    //!     VeryUnhealthy,
+    //!     Hazardous
+    //! 
+    function decideLevel(aqi) {
+        Sys.println("deciding level by aqi " + aqi);
         var aqiNumber = aqi.toNumber();
         if (aqiNumber <= 50) {
-            return Gfx.COLOR_DK_GREEN;
+            return Good;
         } else if (aqiNumber <= 100) {
-            return Gfx.COLOR_YELLOW;
+            return Moderate;
         } else if (aqiNumber <= 150) {
-            return Gfx.COLOR_ORANGE;
+            return UnhealthyForSensitive;
         } else if (aqiNumber <= 200) {
-            return Gfx.COLOR_RED;
+            return Unhealthy;
         } else if (aqiNumber <= 300) {
-            return Gfx.COLOR_PURPLE;
+            return VeryUnhealthy;
         } else {
-            return Gfx.COLOR_BLACK;
+            return Hazardous;
         }
     }
 

@@ -13,8 +13,4 @@
         <label id="Pm10Value" text=""     x="center" y="200"    font="Gfx.FONT_SYSTEM_NUMBER_MILD" justification="Gfx.TEXT_JUSTIFY_LEFT | Gfx.TEXT_JUSTIFY_VCENTER" />
     </layout>
 
-    <layout id="SimpleMessageLayout">
-        <drawable id="SimpleMessageBackground" class="SimpleMessageBackgroundView" />
-        <label id="MessageLabel" text="" x="center" y="center" font="Gfx.FONT_SMALL" justification="Gfx.TEXT_JUSTIFY_CENTER | Gfx.TEXT_JUSTIFY_VCENTER" />
-    </layout>
 </layouts>

@@ -1,8 +1,6 @@
 using Toybox.WatchUi as Ui;
+using Toybox.Graphics as Gfx;
 using Toybox.System as Sys;
-using Toybox.Communications as Comm;
-using Toybox.Position as Position;
-using Toybox.Application.Properties as Properties;
 
 class AqicnWaitingView extends Ui.View {
 
@@ -15,40 +13,46 @@ class AqicnWaitingView extends Ui.View {
 
     // Load your resources here
     function onLayout(dc) {
-        setLayout(Rez.Layouts.SimpleMessageLayout(dc));
     }
 
     // Called when this View is brought to the foreground. Restore
     // the state of this View and prepare it to be shown. This includes
     // loading resources into memory.
     function onShow() {
-        // 
     }
 
     // Update the view
     function onUpdate(dc) {
         Sys.println("waiting view: status: " + dataLoader.status);
-        
-        if (dataLoader.status < 10) {
-            var messageView = View.findDrawableById("MessageLabel");
 
+        dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_DK_GRAY);
+        dc.clear();
+
+        if (dataLoader.status < 10) {
+            var text = "Waiting...";                        // TODO move to String resources
             switch (dataLoader.status) {
                 case WaitingGeoData:
-                    messageView.setText("Waiting for\ngeo data...");
+                    text = "Waiting for\ngeo location...";  // TODO move to String resources
                     break;
                 case WaitingInternetData:
-                    messageView.setText("Waiting for\nInternet data...");
+                    text = "Waiting for\nInternet data..."; // TODO move to String resources
                     break;
             }
-            // Call the parent onUpdate function to redraw the layout
-            View.onUpdate(dc);
+            var waitingString = new Ui.Text({
+                :text  => text,
+                :color => Gfx.COLOR_WHITE,
+                :font  => Gfx.FONT_SMALL,
+                :locX  => Ui.LAYOUT_HALIGN_CENTER,
+                :locY  => Ui.LAYOUT_VALIGN_CENTER
+            });
+            waitingString.draw(dc);
         } else {
             switch (dataLoader.status) {
                 case DataRetrievedError:
                     Ui.switchToView(new AqicnErrorView(dataLoader, self), null, Ui.SLIDE_IMMEDIATE);
                     break;
                 case DataRetrievedOk:
-                    Ui.switchToView(new AqicnMainView(dataLoader, self), null, Ui.SLIDE_IMMEDIATE);
+                    Ui.switchToView(new AqicnMainView(dataLoader, self), new AqicnMainViewDelegate(dataLoader.data), Ui.SLIDE_IMMEDIATE);
                     break;
             }
         }

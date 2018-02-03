@@ -5,4 +5,18 @@
     <string id="UseGPS">Use GPS. If checked, then built-in GPS will be used, otherwise the city below will be used</string>
     <string id="StationId">Id of the station (eg @8129)</string>
 
+    <string id="GoodTitle">Good</string>
+    <string id="ModerateTitle">Moderate</string>
+    <string id="UnhealthyForSensitiveTitle">Unhealthy for Sensitive Groups</string>
+    <string id="UnhealthyTitle">Unhealthy</string>
+    <string id="VeryUnhealthyTitle">Very Unhealthy</string>
+    <string id="HazardousTitle">Hazardous</string>
+
+    <string id="GoodText">0-50: Air quality is considered satisfactory, and air pollution poses little or no risk</string>
+    <string id="ModerateText">51-100: Air quality is acceptable; however, for some pollutants there may be a moderate health concern for a very small number of people who are unusually sensitive to air pollution</string>
+    <string id="UnhealthyForSensitiveText">101-150: Members of sensitive groups may experience health effects. The general public is not likely to be affected</string>
+    <string id="UnhealthyText">151-200: Everyone may begin to experience health effects; members of sensitive groups may experience more serious health effects</string>
+    <string id="VeryUnhealthyText">201-300: Health warnings of emergency conditions. The entire population is more likely to be affected</string>
+    <string id="HazardousText">300+: Health alert: everyone may experience more serious health effects</string>
+
 </strings>

@@ -1,8 +1,6 @@
 using Toybox.WatchUi as Ui;
+using Toybox.Graphics as Gfx;
 using Toybox.System as Sys;
-using Toybox.Communications as Comm;
-using Toybox.Position as Position;
-using Toybox.Application.Properties as Properties;
 
 class AqicnErrorView extends Ui.View {
 
@@ -17,14 +15,12 @@ class AqicnErrorView extends Ui.View {
 
     // Load your resources here
     function onLayout(dc) {
-        setLayout(Rez.Layouts.SimpleMessageLayout(dc));
     }
 
     // Called when this View is brought to the foreground. Restore
     // the state of this View and prepare it to be shown. This includes
     // loading resources into memory.
     function onShow() {
-        // 
     }
 
 
@@ -33,17 +29,25 @@ class AqicnErrorView extends Ui.View {
         Sys.println("error view: status: " + dataLoader.status);
         Sys.println("error view: data:   " + dataLoader.data);
 
-        if (dataLoader.status >= 10) {
-            var messageView = View.findDrawableById("MessageLabel");
+        dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_DK_GRAY);
+        dc.clear();
 
+        if (dataLoader.status >= 10) {
+            var text = "Error:\nunknown";                     // TODO move to String resources
             // it should be ErrorData, else fail
             var data = dataLoader.data;
             if (data.message != null) {
-                messageView.setText(data.message.toString());
+                text = "Error:\n" + data.message.toString();  // TODO move to String resources
             }
 
-            // Call the parent onUpdate function to redraw the layout
-            View.onUpdate(dc);
+            var errorString = new Ui.Text({
+                :text  => text,
+                :color => Gfx.COLOR_WHITE,
+                :font  => Gfx.FONT_SMALL,
+                :locX  => Ui.LAYOUT_HALIGN_CENTER,
+                :locY  => Ui.LAYOUT_VALIGN_CENTER
+            });
+            errorString.draw(dc);
         } else {
             Ui.switchToView(initialView, null, Ui.SLIDE_IMMEDIATE);
         }

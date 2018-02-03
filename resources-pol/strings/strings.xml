@@ -1,0 +1,17 @@
+<strings>
+
+    <string id="GoodTitle">Dobra</string>
+    <string id="ModerateTitle">Średnia</string>
+    <string id="UnhealthyForSensitiveTitle">Niezdrowa dla osób wrażliwych</string>
+    <string id="UnhealthyTitle">Niezdrowa</string>
+    <string id="VeryUnhealthyTitle">Bardzo niezdrowa</string>
+    <string id="HazardousTitle">Zagrożenie dla życia</string>
+
+    <string id="GoodText">0-50: Dobra - Jakość powietrza jest uznawana za zadowalającą, a zanieczyszczenie powietrza stanowi niewielkie ryzyko lub jego brak</string>
+    <string id="ModerateText">51-100: Średnia - Jakość powietrza jest dopuszczalna; jednak niektóre zanieczyszczenia mogą być umiarkowanie szkodliwe dla bardzo małej liczby osób, które są niezwykle wrażliwe na zanieczyszczenie powietrza</string>
+    <string id="UnhealthyForSensitiveText">101-150: Niezdrowe dla wrażliwych osób - u osób wrażliwych mogą wystąpić negatywne skutki dla zdrowia. Większość populacji może nie odczuwać negatywnych objawów</string>
+    <string id="UnhealthyText">151-200: Niezdrowe - Każdy może zacząć doświadczać negatywnych skutków zdrowotnych; U osób wrażliwych mogą wystąpić poważniejsze skutki zdrowotne</string>
+    <string id="VeryUnhealthyText">201-300: Bardzo niezdrowe - Ostrzeżenie zdrowotne, poziom alarmowy. Bardzo prawdopodobny negatywny wpływ na całą populację</string>
+    <string id="HazardousText">300+: Niebezpieczny - Alarm Zdrowotny: każdy może doświadczyć poważniejszych skutków zdrowotnych</string>
+
+</strings>
