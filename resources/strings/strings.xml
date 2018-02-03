@@ -5,11 +5,4 @@
     <string id="UseGPS">Use GPS. If checked, then built-in GPS will be used, otherwise the city below will be used</string>
     <string id="StationId">Id of the station (eg @8129)</string>
 
-    <string id="ColorBlack">Black</string>
-    <string id="ColorDarkGray">Dark Gray</string>
-    <string id="ColorLightGray">Light Gray</string>
-    <string id="ColorWhite">White</string>
-    <string id="ColorBlue">Blue</string>
-    <string id="ColorGreen">Green</string>
-
 </strings>

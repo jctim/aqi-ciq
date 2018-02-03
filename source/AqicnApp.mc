@@ -16,6 +16,7 @@ class AqicnApp extends App.AppBase {
 
     // onStop() is called when your application is exiting
     function onStop(state) {
+        dataLoader.close();
     }
 
     // Return the initial view of your application here

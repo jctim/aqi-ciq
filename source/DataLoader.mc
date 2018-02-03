@@ -1,4 +1,5 @@
 using Toybox.WatchUi as Ui;
+using Toybox.Graphics as Gfx;
 using Toybox.System as Sys;
 using Toybox.Communications as Comm;
 using Toybox.Position as Position;
@@ -16,16 +17,18 @@ class OkData {
     var aqi;
     var pm25;
     var pm10;
+    var color;
 
-    function initialize(city, aqi, pm25, pm10) {
-        self.city = city;
-        self.aqi  = aqi;
-        self.pm25 = pm25;
-        self.pm10 = pm10;
+    function initialize(city, aqi, pm25, pm10, color) {
+        self.city  = city;
+        self.aqi   = aqi;
+        self.pm25  = pm25;
+        self.pm10  = pm10;
+        self.color = color;
     }
 
     function toString() {
-        return "okData[city=" + city + ":aqi=" + aqi + ":pm25=" + pm25 + ":pm10=" + pm10 + "]";
+        return "okData[city=" + city + ":aqi=" + aqi + ":pm25=" + pm25 + ":pm10=" + pm10 + ":color=" + color + "]";
     }
 }
 
@@ -56,6 +59,10 @@ class DataLoader {
         } else {
             requestHttpDataByStationId();
         }
+    }
+
+    function close() {
+        Comm.cancelAllRequests();
     }
 
     private function resetData() {
@@ -132,7 +139,7 @@ class DataLoader {
             var aqi   = data["data"]["aqi"];
             var pm25  = data["data"]["iaqi"]["pm25"] != null ? data["data"]["iaqi"]["pm25"]["v"] : "-";
             var pm10  = data["data"]["iaqi"]["pm10"] != null ? data["data"]["iaqi"]["pm10"]["v"] : "-";
-            self.data = new OkData(normalize(city), aqi, pm25, pm10);
+            self.data = new OkData(normalize(city), aqi, pm25, pm10, decideColor(aqi));
         } else if (data != null && data instanceof Dictionary) {
             self.status = DataRetrievedError;
             
@@ -146,6 +153,23 @@ class DataLoader {
         }
 
         Ui.requestUpdate();
+    }
+
+    function decideColor(aqi) {
+        var aqiNumber = aqi.toNumber();
+        if (aqiNumber <= 50) {
+            return Gfx.COLOR_GREEN;
+        } else if (aqiNumber <= 100) {
+            return Gfx.COLOR_YELLOW;
+        } else if (aqiNumber <= 150) {
+            return Gfx.COLOR_ORANGE;
+        } else if (aqiNumber <= 200) {
+            return Gfx.COLOR_RED;
+        } else if (aqiNumber <= 300) {
+            return Gfx.COLOR_PURPLE;
+        } else {
+            return Gfx.COLOR_BLACK;
+        }
     }
 
     function normalize(city) {

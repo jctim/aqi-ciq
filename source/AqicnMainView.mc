@@ -1,4 +1,5 @@
 using Toybox.WatchUi as Ui;
+using Toybox.Graphics as Gfx;
 using Toybox.System as Sys;
 using Toybox.Communications as Comm;
 using Toybox.Position as Position;
@@ -34,6 +35,7 @@ class AqicnMainView extends Ui.View {
         Sys.println("main view: data:   " + dataLoader.data);
 
         if (dataLoader.status >= 10) {
+            var bgView   = View.findDrawableById("MainBackground");
             var cityView = View.findDrawableById("CityValue");
             var aqiView  = View.findDrawableById("AqiValue");
             var pm25View = View.findDrawableById("Pm25Value");
@@ -53,6 +55,7 @@ class AqicnMainView extends Ui.View {
             if (data.pm10 != null) {
                 pm10View.setText(data.pm10.toString());
             }
+            bgView.setBgColor(data.color);
 
             // Call the parent onUpdate function to redraw the layout
             View.onUpdate(dc);
