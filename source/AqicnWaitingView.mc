@@ -37,7 +37,7 @@ class AqicnWaitingView extends Ui.View {
                     messageView.setText("Waiting for\ngeo data...");
                     break;
                 case WaitingInternetData:
-                    messageView.setText("Waiting for\ninternet data...");
+                    messageView.setText("Waiting for\nInternet data...");
                     break;
             }
             // Call the parent onUpdate function to redraw the layout

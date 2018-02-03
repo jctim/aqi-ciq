@@ -1,25 +1,19 @@
 <settings>
-
-    <setting propertyKey="@Properties.BackgroundColor" title="@Strings.BackgroundColorTitle">
-        <settingConfig type="list">
-            <listEntry value="0x000000">@Strings.ColorBlack</listEntry>
-            <listEntry value="0x494848">@Strings.ColorDarkGray</listEntry>
-            <listEntry value="0xBBBDBF">@Strings.ColorLightGray</listEntry>
-        </settingConfig>
+    
+    <setting propertyKey="@Properties.ApiKey" title="@Strings.ApiKey" helpUrl="http://aqicn.org/data-platform/token/">
+        <settingConfig type="alphaNumeric" required="true" />
     </setting>
 
-    <setting propertyKey="@Properties.ForegroundColor" title="@Strings.ForegroundColorTitle">
-        <settingConfig type="list">
-            <listEntry value="0x109AD7">@Strings.ColorBlue</listEntry>
-            <listEntry value="0x00FF00">@Strings.ColorGreen</listEntry>
-            <listEntry value="0xFFFFFF">@Strings.ColorWhite</listEntry>
-        </settingConfig>
+    <setting propertyKey="@Properties.UseGPS" title="@Strings.UseGPS">
+        <settingConfig type="boolean" />
+    </setting>
+
+    <setting propertyKey="@Properties.StationId" title="@Strings.StationId">
+        <settingConfig type="alphaNumeric" required="false" />
     </setting>
 
 
     <!--TODO add setting to choose:-->
-        <!--By City-->
-        <!--By GPS in watch-->
 
         <!--show data:-->
             <!--PM25-->
@@ -32,10 +26,6 @@
             <!--zone2:-->
                 <!--yellow-->
                 <!--41-50-->
-            
 
-    <setting propertyKey="@Properties.ApiKey" title="@Strings.ApiKey" helpUrl="http://aqicn.org/data-platform/token/">
-        <settingConfig type="alphaNumeric" required="true" />
-    </setting>
 
 </settings>

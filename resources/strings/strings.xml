@@ -1,9 +1,9 @@
 <strings>
     <string id="AppName">Air Quality Index</string>
 
-    <string id="BackgroundColorTitle">Background Color</string>
-    <string id="ForegroundColorTitle">Foreground Color</string>
     <string id="ApiKey">API Key from aqicn.org. Click on (i) to get API Key from http://aqicn.org</string>
+    <string id="UseGPS">Use GPS. If checked, then built-in GPS will be used, otherwise the city below will be used</string>
+    <string id="StationId">Id of the station (eg @8129)</string>
 
     <string id="ColorBlack">Black</string>
     <string id="ColorDarkGray">Dark Gray</string>

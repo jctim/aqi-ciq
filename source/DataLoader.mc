@@ -45,17 +45,32 @@ class DataLoader {
     var data   = null;
     var status = -1;
 
+    var useGPS = null;
+    var apiToken = null;
+    var stationId = null;
+
     function loadData() {
         resetData();
-        requestGeoPosition();
+        if (useGPS) {
+            requestGeoPositionAndRequestDataByPosition();
+        } else {
+            requestHttpDataByStationId();
+        }
     }
 
     private function resetData() {
         data   = null;
         status = -1;
+
+        useGPS   = Properties.getValue("UseGPS");
+        apiToken = Properties.getValue("ApiKey");
+        stationId = Properties.getValue("StationId");
+        if (stationId == null || stationId.length() == 0) {
+            stationId = "@0000";
+        }
     }
 
-    private function requestGeoPosition() {
+    private function requestGeoPositionAndRequestDataByPosition() {
         Sys.println("prepare to register geo position event");
         status = WaitingGeoData;
 
@@ -69,36 +84,48 @@ class DataLoader {
         var lat = location[0];
         var lng = location[1];
 
-        requestHttpData(lat, lng);
+        requestHttpDataByPosition(lat, lng);
     }
 
-    private function requestHttpData(lat, lng) {
+    private function requestHttpDataByPosition(lat, lng) {
         Sys.println("prepare to send http request");
         status = WaitingInternetData;
 
-        var token = Properties.getValue("ApiKey");
         var base  = "https://api.waqi.info";
-        var url   = base + "/feed/geo:" + lat + ";" + lng + "/?token=" + token;
+        var url   = base + "/feed/geo:" + lat + ";" + lng + "/?token=" + apiToken;
         Sys.println("will do request to " + url);
 
+        makeHttpRequest(url);
+    }
+
+    private function requestHttpDataByStationId() {
+        Sys.println("prepare to send http request");
+        status = WaitingInternetData;
+
+        var base  = "https://api.waqi.info";
+        var url   = base + "/feed/" + stationId + "/?token=" + apiToken;
+        Sys.println("will do request to " + url);
+
+        makeHttpRequest(url);
+    }
+
+    private function makeHttpRequest(url) {
         var options = {
             :method => Comm.HTTP_REQUEST_METHOD_GET,
             :responseType => Comm.HTTP_RESPONSE_CONTENT_TYPE_JSON
         };
-        Comm.makeWebRequest(url, {}, options, method(:onHttpDataResponse));
+        Comm.makeWebRequest(url, {}, options, method(:onHttpResponse));
 
         Sys.println("request sent");
         Ui.requestUpdate();
-
     }
 
-    private function onHttpDataResponse(responseCode, data) {
+    private function onHttpResponse(responseCode, data) {
         Sys.println("response received: code=" + responseCode + ", data=" + data);
 
         if (responseCode == 200
-                && "ok".equals(data["status"])
-                && data["data"] != null) {
-
+                && data != null && data instanceof Dictionary
+                && "ok".equals(data["status"])) {
             self.status = DataRetrievedOk;
 
             var city  = data["data"]["city"]["name"];
@@ -106,10 +133,15 @@ class DataLoader {
             var pm25  = data["data"]["iaqi"]["pm25"] != null ? data["data"]["iaqi"]["pm25"]["v"] : "-";
             var pm10  = data["data"]["iaqi"]["pm10"] != null ? data["data"]["iaqi"]["pm10"]["v"] : "-";
             self.data = new OkData(normalize(city), aqi, pm25, pm10);
-        } else {
+        } else if (data != null && data instanceof Dictionary) {
             self.status = DataRetrievedError;
             
             var message = "Error:\ncode=" + responseCode + "\nstatus=" + data["status"] + "\n" + data["data"];
+            self.data   = new ErrorData(message);
+        } else {
+            self.status = DataRetrievedError;
+            
+            var message = "Error:\ncode=" + responseCode + "\nNo Connection";
             self.data   = new ErrorData(message);
         }
 

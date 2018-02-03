@@ -3,7 +3,7 @@ using Toybox.WatchUi as Ui;
 
 class AqicnApp extends App.AppBase {
 
-    var dataLoader  = new DataLoader();
+    var dataLoader = new DataLoader();
 
     function initialize() {
         AppBase.initialize();

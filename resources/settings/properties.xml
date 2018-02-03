@@ -4,5 +4,7 @@
     <property id="ForegroundColor" type="number">0xFFFFFF</property>
 
     <property id="ApiKey" type="string" />
+    <property id="UseGPS" type="boolean">true</property>
+    <property id="StationId" type="string" />
 
 </properties>
