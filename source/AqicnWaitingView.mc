@@ -45,10 +45,10 @@ class AqicnWaitingView extends Ui.View {
         } else {
             switch (dataLoader.status) {
                 case DataRetrievedError:
-                    Ui.pushView(new AqicnErrorView(dataLoader), null, Ui.SLIDE_IMMEDIATE);
+                    Ui.switchToView(new AqicnErrorView(dataLoader, self), null, Ui.SLIDE_IMMEDIATE);
                     break;
                 case DataRetrievedOk:
-                    Ui.pushView(new AqicnMainView(dataLoader), null, Ui.SLIDE_IMMEDIATE);
+                    Ui.switchToView(new AqicnMainView(dataLoader, self), null, Ui.SLIDE_IMMEDIATE);
                     break;
             }
         }

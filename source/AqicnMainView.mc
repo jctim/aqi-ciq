@@ -7,9 +7,11 @@ using Toybox.Application.Properties as Properties;
 class AqicnMainView extends Ui.View {
 
     var dataLoader;
+    var initialView;
 
-    function initialize(dataLoader) {
+    function initialize(dataLoader, initialView) {
         self.dataLoader = dataLoader;
+        self.initialView = initialView;
         View.initialize();
     }
 
@@ -55,7 +57,7 @@ class AqicnMainView extends Ui.View {
             // Call the parent onUpdate function to redraw the layout
             View.onUpdate(dc);
         } else {
-            Ui.popView(Ui.SLIDE_IMMEDIATE);
+            Ui.switchToView(initialView, null, Ui.SLIDE_IMMEDIATE);
         }
 
     }
