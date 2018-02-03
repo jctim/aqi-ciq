@@ -3,7 +3,6 @@ using Toybox.Graphics as Gfx;
 using Toybox.System as Sys;
 using Toybox.Communications as Comm;
 using Toybox.Position as Position;
-using Toybox.Application.Properties as Properties;
 
 enum {
     WaitingGeoData      = 0,
@@ -69,9 +68,9 @@ class DataLoader {
         data   = null;
         status = -1;
 
-        useGPS   = Properties.getValue("UseGPS");
-        apiToken = Properties.getValue("ApiKey");
-        stationId = Properties.getValue("StationId");
+        useGPS   = AppData.readProperty("UseGPS");
+        apiToken = AppData.readProperty("ApiKey");
+        stationId = AppData.readProperty("StationId");
         if (stationId == null || stationId.length() == 0) {
             stationId = "@0000";
         }
@@ -158,7 +157,7 @@ class DataLoader {
     function decideColor(aqi) {
         var aqiNumber = aqi.toNumber();
         if (aqiNumber <= 50) {
-            return Gfx.COLOR_GREEN;
+            return Gfx.COLOR_DK_GREEN;
         } else if (aqiNumber <= 100) {
             return Gfx.COLOR_YELLOW;
         } else if (aqiNumber <= 150) {
