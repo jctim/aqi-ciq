@@ -80,28 +80,18 @@ class AqicnMainView extends Ui.View {
 
 }
 
-class AqicnMainViewDelegate extends Ui.InputDelegate {
+class AqicnMainViewDelegate extends Ui.BehaviorDelegate {
 
     var data;
 
     function initialize(data) {
         self.data = data;
-        Ui.InputDelegate.initialize();
+        Ui.BehaviorDelegate.initialize();
     }
 
-    function onKey(key) {
-        if (key.getKey() == Ui.KEY_ENTER) {
-            showDetailsView();
-        }
-    }
-
-    function onTap(evt) {
-        if (evt.getType() == Ui.CLICK_TYPE_TAP) {
-            showDetailsView();
-        }
-    }
-
-    private function showDetailsView() {
-        Ui.pushView(new AqicnDetailView(data.level), new AqicnDetailViewDelegate(), Ui.SLIDE_LEFT);
+    function onSelect() {
+        var detailView = new AqicnDetailView(data.level);
+        var detailViewDelegate = new AqicnDetailViewDelegate(detailView);
+        Ui.pushView(detailView, detailViewDelegate, Ui.SLIDE_LEFT);
     }
 }
