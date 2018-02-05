@@ -8,7 +8,7 @@
     <string id="HazardousTitle">Zagrożenie\ndla życia</string>
 
     <string                  id="GoodText">Jakość powietrza jest\nuznawana za zadowalającą,\na zanieczyszczenie powietrza\nstanowi niewielkie ryzyko\nlub jego brak</string>
-    <string              id="ModerateText">Jakość powietrza jest\ndopuszczalna; jednak\nniektóre zanieczyszczenia\nmogą być umiarkowanie\nszkodliwe dla bardzo\nmałej liczby osób, które\nsą niezwykle wrażliwe na\nzanieczyszczenie powietrza</string>
+    <string              id="ModerateText">Jakość powietrza jest\ndopuszczalna; jednak\nniektóre zanieczyszczenia\nmogą być umiarkowanie\nszkodliwe dla bardzo\nmałej liczby osób, które\nsą niezwykle wrażliwe na\nzanieczyszczenie\npowietrza</string>
     <string id="UnhealthyForSensitiveText">Niezdrowe dla wrażliwych\nosób - u osób wrażliwych\nmogą wystąpić negatywne\nskutki dla zdrowia.\nWiększość populacji może\nnie odczuwać\nnegatywnych objawów</string>
     <string             id="UnhealthyText">Każdy może zacząć\ndoświadczać negatywnych\nskutków zdrowotnych; U\nosób wrażliwych mogą\nwystąpić poważniejsze\nskutki zdrowotne</string>
     <string         id="VeryUnhealthyText">Ostrzeżenie zdrowotne,\npoziom alarmowy. Bardzo\nprawdopodobny negatywny\nwpływ na całą populację</string>

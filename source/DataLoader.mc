@@ -85,7 +85,7 @@ class DataLoader {
     }
 
     private function requestGeoPositionAndRequestDataByPosition() {
-        Sys.println("prepare to register geo position event");
+        // Sys.println("prepare to register geo position event");
         status = WaitingGeoData;
 
         Position.enableLocationEvents(Position.LOCATION_ONE_SHOT, method(:onGeoPositionResponse));
@@ -102,7 +102,7 @@ class DataLoader {
     }
 
     private function requestHttpDataByPosition(lat, lng) {
-        Sys.println("prepare to send http request");
+        // Sys.println("prepare to send http request");
         status = WaitingInternetData;
 
         var base  = "https://api.waqi.info";
@@ -113,7 +113,7 @@ class DataLoader {
     }
 
     private function requestHttpDataByStationId() {
-        Sys.println("prepare to send http request");
+        // Sys.println("prepare to send http request");
         status = WaitingInternetData;
 
         var base  = "https://api.waqi.info";
@@ -130,7 +130,7 @@ class DataLoader {
         };
         Comm.makeWebRequest(url, {}, options, method(:onHttpResponse));
 
-        Sys.println("request sent");
+        // Sys.println("request sent");
         Ui.requestUpdate();
     }
 
@@ -171,7 +171,7 @@ class DataLoader {
     //!     Hazardous
     //! 
     function decideLevel(aqi) {
-        Sys.println("deciding level by aqi " + aqi);
+        // Sys.println("deciding level by aqi " + aqi);
         var aqiNumber = aqi.toNumber();
         if (aqiNumber <= 50) {
             return Good;
@@ -189,7 +189,7 @@ class DataLoader {
     }
 
     function normalize(city) {
-        Sys.println("normalizing " + city);
+        // Sys.println("normalizing " + city);
         var idx;
         
         idx = city.find(" - ");
@@ -202,7 +202,7 @@ class DataLoader {
             city = city.substring(0, idx) + ",\n" + city.substring(idx + 2, city.length());
         }
 
-        Sys.println("normalized  " + city);
+        // Sys.println("normalized  " + city);
         return city;
     }
 }

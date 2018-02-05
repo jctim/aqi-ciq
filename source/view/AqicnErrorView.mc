@@ -27,7 +27,7 @@ class AqicnErrorView extends Ui.View {
     // Update the view
     function onUpdate(dc) {
         Sys.println("error view: status: " + dataLoader.status);
-        Sys.println("error view: data:   " + dataLoader.data);
+        // Sys.println("error view: data:   " + dataLoader.data);
 
         dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_DK_GRAY);
         dc.clear();

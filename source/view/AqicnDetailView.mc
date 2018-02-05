@@ -27,7 +27,7 @@ class AqicnDetailView extends Ui.View {
 
     // Update the view
     function onUpdate(dc) {
-        Sys.println("detail view: level: " + level);
+        // Sys.println("detail view: level: " + level);
 
         var title = "";
         var text = "";
@@ -94,31 +94,12 @@ class AqicnDetailView extends Ui.View {
     // memory.
     function onHide() {
     }
-
-    function fitText(text, dc) {
-        var textWidth = dc.getTextWidthInPixels(text, Gfx.FONT_XTINY); //Sys.println(textWidth);
-        var visibleWidth = dc.getWidth() - 25;                         //Sys.println(visibleWidth);
-        var lines = textWidth / visibleWidth + 1;                      //Sys.println(lines);
-        var charsCount = text.length();                                //Sys.println(charsCount);
-        var step = charsCount / lines;                                 //Sys.println(step);
-
-        var newText = "";
-        for (var i = 0; i < lines; i++) {
-            var t = text.substring(i * step, (i + 1) * step);
-            newText += t;
-            newText += "\n";
-        }
-        newText += text.substring(lines * step, text.length());
-
-        //Sys.println(text);
-        //Sys.println(newText);
-        return newText;
-    }
-
 }
 
 class AqicnDetailViewDelegate extends Ui.BehaviorDelegate {
 
+    const MAX_SCROLL_LINES = 4;
+    
     var detailView;
 
     function initialize(detailView) {
@@ -132,8 +113,8 @@ class AqicnDetailViewDelegate extends Ui.BehaviorDelegate {
 
     function onNextPage() {
         detailView.textVerticalShift += 1;
-        if (detailView.textVerticalShift > 3) {
-            detailView.textVerticalShift = 3;
+        if (detailView.textVerticalShift > MAX_SCROLL_LINES) {
+            detailView.textVerticalShift = MAX_SCROLL_LINES;
         }
         Ui.requestUpdate();
     }

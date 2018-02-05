@@ -28,7 +28,7 @@ class AqicnMainView extends Ui.View {
     // Update the view
     function onUpdate(dc) {
         Sys.println("main view: status: " + dataLoader.status);
-        Sys.println("main view: data:   " + dataLoader.data);
+        // Sys.println("main view: data:   " + dataLoader.data);
 
         if (dataLoader.status >= 10) {
             var bgView   = View.findDrawableById("MainBackground");
@@ -61,7 +61,7 @@ class AqicnMainView extends Ui.View {
     }
 
     private function decideColor(level) {
-        Sys.println("deciding color by level " + level);
+        // Sys.println("deciding color by level " + level);
         switch (level) {
             case Good: return Gfx.COLOR_DK_GREEN;
             case Moderate: return Gfx.COLOR_YELLOW;
