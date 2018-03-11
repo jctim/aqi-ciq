@@ -32,6 +32,11 @@ class AqicnMainView extends Ui.View {
 
         if (dataLoader.status >= 10) {
             var bgView   = View.findDrawableById("MainBackground");
+            
+            var aqiLabel = View.findDrawableById("AqiLabel");
+            var pm25Label = View.findDrawableById("Pm25Label");
+            var pm10Label = View.findDrawableById("Pm10Label");
+
             var cityView = View.findDrawableById("CityValue");
             var aqiView  = View.findDrawableById("AqiValue");
             var pm25View = View.findDrawableById("Pm25Value");
@@ -39,19 +44,31 @@ class AqicnMainView extends Ui.View {
 
             // it should be OkData, else fail
             var data = dataLoader.data;
+
+            var fgColor = decideFgColor(data.level);
+            var bgColor = decideBgColor(data.level); 
+
+            bgView.setBgColor(bgColor);
+            aqiLabel.setColor(fgColor);
+            pm25Label.setColor(fgColor);
+            pm10Label.setColor(fgColor);
+
             if (data.city != null) {
+                cityView.setColor(fgColor);
                 cityView.setText(data.city.toString());
             }
             if (data.aqi != null) {
+                aqiView.setColor(fgColor);
                 aqiView.setText(data.aqi.toString());
             }
             if (data.pm25 != null) {
+                pm25View.setColor(fgColor);
                 pm25View.setText(data.pm25.toString());
             }
             if (data.pm10 != null) {
+                pm10View.setColor(fgColor);
                 pm10View.setText(data.pm10.toString());
             }
-            bgView.setBgColor(decideColor(data.level));
 
             // Call the parent onUpdate function to redraw the layout
             View.onUpdate(dc);
@@ -60,9 +77,23 @@ class AqicnMainView extends Ui.View {
         }
     }
 
-    private function decideColor(level) {
-        // Sys.println("deciding color by level " + level);
+    private function decideFgColor(level) {
+        // Sys.println("deciding FG color by level " + level);
         switch (level) {
+            case Undefined: return Gfx.COLOR_BLACK;
+            case Good: return Gfx.COLOR_WHITE;
+            case Moderate: return Gfx.COLOR_WHITE;
+            case UnhealthyForSensitive: return Gfx.COLOR_WHITE;
+            case Unhealthy: return Gfx.COLOR_WHITE;
+            case VeryUnhealthy: return Gfx.COLOR_WHITE;
+            case Hazardous: return Gfx.COLOR_WHITE;
+        }
+    }
+
+    private function decideBgColor(level) {
+        // Sys.println("deciding BG color by level " + level);
+        switch (level) {
+            case Undefined: return Gfx.COLOR_WHITE;
             case Good: return Gfx.COLOR_DK_GREEN;
             case Moderate: return Gfx.COLOR_YELLOW;
             case UnhealthyForSensitive: return Gfx.COLOR_ORANGE;

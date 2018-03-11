@@ -5,6 +5,7 @@
     <string id="UseGPS">Use GPS. If checked, then built-in GPS will be used, otherwise the city below will be used</string>
     <string id="StationId">Id of the station (eg @8129)</string>
 
+    <string id="UndefinedTitle">Undefined</string>
     <string id="GoodTitle">Good</string> <!-- 0-50 -->
     <string id="ModerateTitle">Moderate</string> <!-- 51-100 -->
     <string id="UnhealthyForSensitiveTitle">Unhealthy\nfor Sensitive Groups</string> <!-- 101-150 -->
@@ -12,6 +13,7 @@
     <string id="VeryUnhealthyTitle">Very\nUnhealthy</string> <!-- 201-300 -->
     <string id="HazardousTitle">Hazardous</string> <!-- 300+ -->
 
+    <string             id="UndefinedText">Undefined Air quality</string>
     <string                  id="GoodText">Air quality is considered\nsatisfactory, and air\npollution poses little or\nno risk</string>
     <string              id="ModerateText">Air quality is acceptable;\nhowever, for some pollutants\nthere may be a moderate\nhealth concern for a very\nsmall number of people\nwho are unusually sensitive\nto air pollution</string>
     <string id="UnhealthyForSensitiveText">Members of sensitive\ngroups may experience\nhealth effects. The general\npublic is not likely to be\naffected</string>

@@ -11,6 +11,7 @@ enum {
 }
 
 enum {
+    Undefined,
     Good,
     Moderate,
     UnhealthyForSensitive,
@@ -146,6 +147,8 @@ class DataLoader {
             var aqi   = data["data"]["aqi"];
             var pm25  = data["data"]["iaqi"]["pm25"] != null ? data["data"]["iaqi"]["pm25"]["v"] : "-";
             var pm10  = data["data"]["iaqi"]["pm10"] != null ? data["data"]["iaqi"]["pm10"]["v"] : "-";
+
+            aqi = correctAqi(aqi, pm25, pm10);
             self.data = new OkData(normalize(city), aqi, pm25, pm10, decideLevel(aqi));
         } else if (data != null && data instanceof Dictionary) {
             self.status = DataRetrievedError;
@@ -162,7 +165,19 @@ class DataLoader {
         Ui.requestUpdate();
     }
 
+    //! correct aqi if response data doesn't contains valid AQI value
+    function correctAqi(aqi, pm25, pm10) {
+        if (aqi.toNumber() == null) {
+            aqi = pm25;
+        }
+        if (aqi.toNumber() == null) {
+            aqi = pm10;
+        }
+        return aqi;
+    }
+
     //!
+    //!     Undefined,
     //!     Good,
     //!     Moderate,
     //!     UnhealthyForSensitive,
@@ -173,7 +188,9 @@ class DataLoader {
     function decideLevel(aqi) {
         // Sys.println("deciding level by aqi " + aqi);
         var aqiNumber = aqi.toNumber();
-        if (aqiNumber <= 50) {
+        if (aqiNumber == null) {
+            return Undefined;
+        } else if (aqiNumber <= 50) {
             return Good;
         } else if (aqiNumber <= 100) {
             return Moderate;

@@ -32,6 +32,10 @@ class AqicnDetailView extends Ui.View {
         var title = "";
         var text = "";
         switch (level) {
+            case Undefined:
+                title = Ui.loadResource(Rez.Strings.UndefinedTitle);
+                text = Ui.loadResource(Rez.Strings.UndefinedText);
+                break;
             case Good:
                 title = Ui.loadResource(Rez.Strings.GoodTitle);
                 text = Ui.loadResource(Rez.Strings.GoodText);
