@@ -1,0 +1,9 @@
+<strings>
+    <string             id="UndefinedText">Undefined Air quality</string>
+    <string                  id="GoodText">Air quality is considered\nsatisfactory, and air\npollution poses little or\nno risk</string>
+    <string              id="ModerateText">Air quality is acceptable;\nhowever, for some\npollutants there may be a\nmoderate health concern\nfor a very small number\nof people who are\nsensitive to air pollution</string>
+    <string id="UnhealthyForSensitiveText">Members of sensitive\ngroups may experience\nhealth effects. The\ngeneral public is not\nlikely to be affected</string>
+    <string             id="UnhealthyText">Everyone may begin\nto experience health\neffects; members of\nsensitive groups may\nexperience more serious\nhealth effects</string>
+    <string         id="VeryUnhealthyText">Health warnings of\nemergency conditions.\nThe entire population is\nmore likely to be\naffected</string>
+    <string             id="HazardousText">Health alert: everyone\nmay experience more\nserious health effects</string>
+</strings>
