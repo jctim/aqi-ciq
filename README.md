@@ -1,3 +1,5 @@
+[<img src="http://developer.garmin.com/img/connect-iq/brand/available-badge.svg" alt="Connect IQ" height="88"/>](https://apps.garmin.com/en-US/apps/7bb1bc3d-0f5d-4a38-98ac-cf55d35a6e2b)
+
 # aqi-ciq
 
 **Air Quality Index widget for Garmin Connect IQ** - the widget aimed to display AQI (Air Quality Index) for current geo position or desired city station right on a Garmin wearable device. 
