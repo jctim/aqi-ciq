@@ -93,7 +93,7 @@ class DataLoader {
         Ui.requestUpdate();
     }
 
-    private function onGeoPositionResponse(info) {
+    function onGeoPositionResponse(info) {
         Sys.println("geo received: info=" + info);
         var location = info.position.toDegrees();
         var lat = location[0];
@@ -135,7 +135,7 @@ class DataLoader {
         Ui.requestUpdate();
     }
 
-    private function onHttpResponse(responseCode, data) {
+    function onHttpResponse(responseCode, data) {
         Sys.println("response received: code=" + responseCode + ", data=" + data);
 
         if (responseCode == 200
