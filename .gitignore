@@ -1,7 +1,10 @@
 .idea/
+.lh/
+.vscode/
 *.iml
 
 out/
+output/
 bin/
 
 properties.mk

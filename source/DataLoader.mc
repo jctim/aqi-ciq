@@ -1,7 +1,8 @@
-using Toybox.WatchUi as Ui;
-using Toybox.System as Sys;
-using Toybox.Communications as Comm;
-using Toybox.Position as Position;
+import Toybox.WatchUi;
+import Toybox.System;
+import Toybox.Lang;
+import Toybox.Communications;
+import Toybox.Position;
 
 enum {
     WaitingGeoData      = 0,
@@ -70,7 +71,7 @@ class DataLoader {
     }
 
     function close() {
-        Comm.cancelAllRequests();
+        Communications.cancelAllRequests();
     }
 
     private function resetData() {
@@ -85,16 +86,16 @@ class DataLoader {
         }
     }
 
-    private function requestGeoPositionAndRequestDataByPosition() {
-        // Sys.println("prepare to register geo position event");
+    private function requestGeoPositionAndRequestDataByPosition() as Void {
+        // System.println("prepare to register geo position event");
         status = WaitingGeoData;
 
         Position.enableLocationEvents(Position.LOCATION_ONE_SHOT, method(:onGeoPositionResponse));
-        Ui.requestUpdate();
+        WatchUi.requestUpdate();
     }
 
-    function onGeoPositionResponse(info) {
-        Sys.println("geo received: info=" + info);
+    function onGeoPositionResponse(info as Position.Info) as Void {
+        System.println("geo received: info=" + info);
         var location = info.position.toDegrees();
         var lat = location[0];
         var lng = location[1];
@@ -103,40 +104,40 @@ class DataLoader {
     }
 
     private function requestHttpDataByPosition(lat, lng) {
-        // Sys.println("prepare to send http request");
+        // System.println("prepare to send http request");
         status = WaitingInternetData;
 
         var base  = "https://api.waqi.info";
         var url   = base + "/feed/geo:" + lat + ";" + lng + "/?token=" + apiToken;
-        Sys.println("will do request to " + url);
+        System.println("will do request to " + url);
 
         makeHttpRequest(url);
     }
 
     private function requestHttpDataByStationId() {
-        // Sys.println("prepare to send http request");
+        // System.println("prepare to send http request");
         status = WaitingInternetData;
 
         var base  = "https://api.waqi.info";
         var url   = base + "/feed/" + stationId + "/?token=" + apiToken;
-        Sys.println("will do request to " + url);
+        System.println("will do request to " + url);
 
         makeHttpRequest(url);
     }
 
-    private function makeHttpRequest(url) {
+    private function makeHttpRequest(url as String) as Void {
         var options = {
-            :method => Comm.HTTP_REQUEST_METHOD_GET,
-            :responseType => Comm.HTTP_RESPONSE_CONTENT_TYPE_JSON
+            :method => Communications.HTTP_REQUEST_METHOD_GET,
+            :responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON
         };
-        Comm.makeWebRequest(url, {}, options, method(:onHttpResponse));
+        Communications.makeWebRequest(url, {}, options, method(:onHttpResponse));
 
-        // Sys.println("request sent");
-        Ui.requestUpdate();
+        // System.println("request sent");
+        WatchUi.requestUpdate();
     }
 
-    function onHttpResponse(responseCode, data) {
-        Sys.println("response received: code=" + responseCode + ", data=" + data);
+    function onHttpResponse(responseCode as Number, data as Null or Dictionary or String) as Void {
+        System.println("response received: code=" + responseCode + ", data=" + data);
 
         if (responseCode == 200
                 && data != null && data instanceof Dictionary
@@ -162,7 +163,7 @@ class DataLoader {
             self.data   = new ErrorData(message);
         }
 
-        Ui.requestUpdate();
+        WatchUi.requestUpdate();
     }
 
     //! correct aqi if response data doesn't contains valid AQI value
@@ -186,7 +187,7 @@ class DataLoader {
     //!     Hazardous
     //! 
     function decideLevel(aqi) {
-        // Sys.println("deciding level by aqi " + aqi);
+        // System.println("deciding level by aqi " + aqi);
         var aqiNumber = aqi.toNumber();
         if (aqiNumber == null) {
             return Undefined;
@@ -206,7 +207,7 @@ class DataLoader {
     }
 
     function normalize(city) {
-        // Sys.println("normalizing " + city);
+        // System.println("normalizing " + city);
         var idx;
         
         idx = city.find(" - ");
@@ -219,7 +220,7 @@ class DataLoader {
             city = city.substring(0, idx) + ",\n" + city.substring(idx + 2, city.length());
         }
 
-        // Sys.println("normalized  " + city);
+        // System.println("normalized  " + city);
         return city;
     }
 }

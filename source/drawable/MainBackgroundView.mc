@@ -1,10 +1,10 @@
-using Toybox.WatchUi as Ui;
-using Toybox.Graphics as Gfx;
-using Toybox.System as Sys;
+import Toybox.WatchUi;
+import Toybox.Graphics;
+import Toybox.System;
 
-class MainBackgroundView extends Ui.Drawable {
+class MainBackgroundView extends WatchUi.Drawable {
 
-    var bgColor = Gfx.COLOR_BLACK;
+    var bgColor = Graphics.COLOR_BLACK;
 
     function initialize(params) {
         Drawable.initialize(params);
@@ -15,7 +15,7 @@ class MainBackgroundView extends Ui.Drawable {
     }
 
     function draw(dc) {
-        dc.setColor(Gfx.COLOR_TRANSPARENT, bgColor);
+        dc.setColor(Graphics.COLOR_TRANSPARENT, bgColor);
         dc.clear();
     }
 

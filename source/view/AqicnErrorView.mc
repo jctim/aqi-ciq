@@ -1,8 +1,8 @@
-using Toybox.WatchUi as Ui;
-using Toybox.Graphics as Gfx;
-using Toybox.System as Sys;
+import Toybox.WatchUi;
+import Toybox.Graphics;
+import Toybox.System;
 
-class AqicnErrorView extends Ui.View {
+class AqicnErrorView extends WatchUi.View {
 
     var dataLoader;
     var initialView;
@@ -26,10 +26,10 @@ class AqicnErrorView extends Ui.View {
 
     // Update the view
     function onUpdate(dc) {
-        Sys.println("error view: status: " + dataLoader.status);
-        // Sys.println("error view: data:   " + dataLoader.data);
+        System.println("error view: status: " + dataLoader.status);
+        // System.println("error view: data:   " + dataLoader.data);
 
-        dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_DK_GRAY);
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_DK_GRAY);
         dc.clear();
 
         if (dataLoader.status >= 10) {
@@ -40,16 +40,16 @@ class AqicnErrorView extends Ui.View {
                 text = "Error:\n" + data.message.toString();  // TODO move to String resources
             }
 
-            var errorString = new Ui.Text({
+            var errorString = new WatchUi.Text({
                 :text  => text,
-                :color => Gfx.COLOR_WHITE,
-                :font  => Gfx.FONT_SMALL,
-                :locX  => Ui.LAYOUT_HALIGN_CENTER,
-                :locY  => Ui.LAYOUT_VALIGN_CENTER
+                :color => Graphics.COLOR_WHITE,
+                :font  => Graphics.FONT_SMALL,
+                :locX  => WatchUi.LAYOUT_HALIGN_CENTER,
+                :locY  => WatchUi.LAYOUT_VALIGN_CENTER
             });
             errorString.draw(dc);
         } else {
-            Ui.switchToView(initialView, null, Ui.SLIDE_IMMEDIATE);
+            WatchUi.switchToView(initialView, null, WatchUi.SLIDE_IMMEDIATE);
         }
 
     }

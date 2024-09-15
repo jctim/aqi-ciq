@@ -1,8 +1,8 @@
-using Toybox.WatchUi as Ui;
-using Toybox.Graphics as Gfx;
-using Toybox.System as Sys;
+import Toybox.WatchUi;
+import Toybox.Graphics;
+import Toybox.System;
 
-class AqicnWaitingView extends Ui.View {
+class AqicnWaitingView extends WatchUi.View {
 
     var dataLoader;
 
@@ -23,9 +23,9 @@ class AqicnWaitingView extends Ui.View {
 
     // Update the view
     function onUpdate(dc) {
-        Sys.println("waiting view: status: " + dataLoader.status);
+        System.println("waiting view: status: " + dataLoader.status);
 
-        dc.setColor(Gfx.COLOR_WHITE, Gfx.COLOR_DK_GRAY);
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_DK_GRAY);
         dc.clear();
 
         if (dataLoader.status < 10) {
@@ -38,21 +38,21 @@ class AqicnWaitingView extends Ui.View {
                     text = "Waiting for\nInternet data..."; // TODO move to String resources
                     break;
             }
-            var waitingString = new Ui.Text({
+            var waitingString = new WatchUi.Text({
                 :text  => text,
-                :color => Gfx.COLOR_WHITE,
-                :font  => Gfx.FONT_SMALL,
-                :locX  => Ui.LAYOUT_HALIGN_CENTER,
-                :locY  => Ui.LAYOUT_VALIGN_CENTER
+                :color => Graphics.COLOR_WHITE,
+                :font  => Graphics.FONT_SMALL,
+                :locX  => WatchUi.LAYOUT_HALIGN_CENTER,
+                :locY  => WatchUi.LAYOUT_VALIGN_CENTER
             });
             waitingString.draw(dc);
         } else {
             switch (dataLoader.status) {
                 case DataRetrievedError:
-                    Ui.switchToView(new AqicnErrorView(dataLoader, self), null, Ui.SLIDE_IMMEDIATE);
+                    WatchUi.switchToView(new AqicnErrorView(dataLoader, self), null, WatchUi.SLIDE_IMMEDIATE);
                     break;
                 case DataRetrievedOk:
-                    Ui.switchToView(new AqicnMainView(dataLoader, self), new AqicnMainViewDelegate(dataLoader.data), Ui.SLIDE_IMMEDIATE);
+                    WatchUi.switchToView(new AqicnMainView(dataLoader, self), new AqicnMainViewDelegate(dataLoader.data), WatchUi.SLIDE_IMMEDIATE);
                     break;
             }
         }

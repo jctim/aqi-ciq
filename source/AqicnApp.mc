@@ -1,7 +1,7 @@
-using Toybox.Application as App;
-using Toybox.WatchUi as Ui;
+import Toybox.Application;
+import Toybox.WatchUi;
 
-class AqicnApp extends App.AppBase {
+class AqicnApp extends Application.AppBase {
 
     var dataLoader = new DataLoader();
 

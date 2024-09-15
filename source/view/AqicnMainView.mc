@@ -1,8 +1,9 @@
-using Toybox.WatchUi as Ui;
-using Toybox.Graphics as Gfx;
-using Toybox.System as Sys;
+import Toybox.WatchUi;
+import Toybox.Lang;
+import Toybox.Graphics;
+import Toybox.System;
 
-class AqicnMainView extends Ui.View {
+class AqicnMainView extends WatchUi.View {
 
     var dataLoader;
     var initialView;
@@ -27,20 +28,20 @@ class AqicnMainView extends Ui.View {
 
     // Update the view
     function onUpdate(dc) {
-        Sys.println("main view: status: " + dataLoader.status);
-        // Sys.println("main view: data:   " + dataLoader.data);
+        System.println("main view: status: " + dataLoader.status);
+        // System.println("main view: data:   " + dataLoader.data);
 
         if (dataLoader.status >= 10) {
-            var bgView   = View.findDrawableById("MainBackground");
+            var bgView   = View.findDrawableById("MainBackground") as MainBackgroundView;
             
-            var aqiLabel = View.findDrawableById("AqiLabel");
-            var pm25Label = View.findDrawableById("Pm25Label");
-            var pm10Label = View.findDrawableById("Pm10Label");
+            var aqiLabel  = View.findDrawableById("AqiLabel") as Text;
+            var pm25Label = View.findDrawableById("Pm25Label") as Text;
+            var pm10Label = View.findDrawableById("Pm10Label") as Text;
 
-            var cityView = View.findDrawableById("CityValue");
-            var aqiView  = View.findDrawableById("AqiValue");
-            var pm25View = View.findDrawableById("Pm25Value");
-            var pm10View = View.findDrawableById("Pm10Value");
+            var cityView = View.findDrawableById("CityValue") as Text;
+            var aqiView  = View.findDrawableById("AqiValue") as Text;
+            var pm25View = View.findDrawableById("Pm25Value") as Text;
+            var pm10View = View.findDrawableById("Pm10Value") as Text;
 
             // it should be OkData, else fail
             var data = dataLoader.data;
@@ -48,7 +49,7 @@ class AqicnMainView extends Ui.View {
             var fgColor = decideFgColor(data.level);
             var bgColor = decideBgColor(data.level); 
 
-            bgView.setBgColor(bgColor);
+            bgView.setBgColor(bgColor); 
             aqiLabel.setColor(fgColor);
             pm25Label.setColor(fgColor);
             pm10Label.setColor(fgColor);
@@ -69,37 +70,40 @@ class AqicnMainView extends Ui.View {
                 pm10View.setColor(fgColor);
                 pm10View.setText(data.pm10.toString());
             }
+            pm10View.setText("17");
 
             // Call the parent onUpdate function to redraw the layout
             View.onUpdate(dc);
         } else {
-            Ui.switchToView(initialView, null, Ui.SLIDE_IMMEDIATE);
+            WatchUi.switchToView(initialView, null, WatchUi.SLIDE_IMMEDIATE);
         }
     }
 
-    private function decideFgColor(level) {
-        // Sys.println("deciding FG color by level " + level);
+    private function decideFgColor(level) as ColorValue {
+        // System.println("deciding FG color by level " + level);
         switch (level) {
-            case Undefined: return Gfx.COLOR_BLACK;
-            case Good: return Gfx.COLOR_WHITE;
-            case Moderate: return Gfx.COLOR_WHITE;
-            case UnhealthyForSensitive: return Gfx.COLOR_WHITE;
-            case Unhealthy: return Gfx.COLOR_WHITE;
-            case VeryUnhealthy: return Gfx.COLOR_WHITE;
-            case Hazardous: return Gfx.COLOR_WHITE;
+            case Undefined: return Graphics.COLOR_BLACK;
+            case Good: return Graphics.COLOR_WHITE;
+            case Moderate: return Graphics.COLOR_WHITE;
+            case UnhealthyForSensitive: return Graphics.COLOR_WHITE;
+            case Unhealthy: return Graphics.COLOR_WHITE;
+            case VeryUnhealthy: return Graphics.COLOR_WHITE;
+            case Hazardous: return Graphics.COLOR_WHITE;
+            default: return Graphics.COLOR_WHITE;
         }
     }
 
-    private function decideBgColor(level) {
-        // Sys.println("deciding BG color by level " + level);
+    private function decideBgColor(level) as ColorValue {
+        // System.println("deciding BG color by level " + level);
         switch (level) {
-            case Undefined: return Gfx.COLOR_WHITE;
-            case Good: return Gfx.COLOR_DK_GREEN;
-            case Moderate: return Gfx.COLOR_YELLOW;
-            case UnhealthyForSensitive: return Gfx.COLOR_ORANGE;
-            case Unhealthy: return Gfx.COLOR_RED;
-            case VeryUnhealthy: return Gfx.COLOR_PURPLE;
-            case Hazardous: return Gfx.COLOR_BLACK;
+            case Undefined: return Graphics.COLOR_WHITE;
+            case Good: return Graphics.COLOR_DK_GREEN;
+            case Moderate: return Graphics.COLOR_YELLOW;
+            case UnhealthyForSensitive: return Graphics.COLOR_ORANGE;
+            case Unhealthy: return Graphics.COLOR_RED;
+            case VeryUnhealthy: return Graphics.COLOR_PURPLE;
+            case Hazardous: return Graphics.COLOR_BLACK;
+            default: return Graphics.COLOR_WHITE;
         }
     }
 
@@ -111,18 +115,18 @@ class AqicnMainView extends Ui.View {
 
 }
 
-class AqicnMainViewDelegate extends Ui.BehaviorDelegate {
+class AqicnMainViewDelegate extends WatchUi.BehaviorDelegate {
 
     var data;
 
     function initialize(data) {
         self.data = data;
-        Ui.BehaviorDelegate.initialize();
+        WatchUi.BehaviorDelegate.initialize();
     }
 
-    function onSelect() {
+    function onSelect() as Boolean {
         var detailView = new AqicnDetailView(data.level);
         var detailViewDelegate = new AqicnDetailViewDelegate(detailView);
-        Ui.pushView(detailView, detailViewDelegate, Ui.SLIDE_LEFT);
+        return WatchUi.pushView(detailView, detailViewDelegate, WatchUi.SLIDE_LEFT);
     }
 }
