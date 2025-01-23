@@ -70,7 +70,6 @@ class AqicnMainView extends WatchUi.View {
                 pm10View.setColor(fgColor);
                 pm10View.setText(data.pm10.toString());
             }
-            pm10View.setText("17");
 
             // Call the parent onUpdate function to redraw the layout
             View.onUpdate(dc);
